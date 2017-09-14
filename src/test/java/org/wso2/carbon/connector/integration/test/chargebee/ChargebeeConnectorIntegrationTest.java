@@ -48,8 +48,9 @@ public class ChargebeeConnectorIntegrationTest extends ConnectorIntegrationTestB
      */
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
-
-        init("chargebee-connector-1.0.2-SNAPSHOT");
+        String connectorName = System.getProperty("connector_name") + "-connector-" +
+                System.getProperty("connector_version") + ".zip";
+        init(connectorName);
 
         esbRequestHeadersMap.put("Accept-Charset", "UTF-8");
         esbRequestHeadersMap.put("Content-Type", "application/json");
@@ -64,7 +65,7 @@ public class ChargebeeConnectorIntegrationTest extends ConnectorIntegrationTestB
         apiRequestHeadersMap.put("Content-Type", "application/x-www-form-urlencoded");
 
         currentTimeString = String.valueOf(System.currentTimeMillis());
-        apiUrl = connectorProperties.getProperty("apiUrl") + "/api/v1";
+        apiUrl = connectorProperties.getProperty("apiUrl") + "/api/" + connectorProperties.getProperty("apiVersion");
     }
 
     /**

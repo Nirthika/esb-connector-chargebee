@@ -14,29 +14,28 @@ Tested Platform:
 
 Steps to follow in setting integration test.
 
- 1. Download ESB 5.0.0-SNAPSHOT from official website. Extract the ESB and put "-XX:-UseSplitVerifier" under $JVM_MEM_OPTS into {ESB_HOME}/bin/wso2server.sh.
+ 1. Download EI 6.1.1 from official website and extract it.
 
- 2. Copy that zip file in to location "<esb-connector-chargebee>/repository/".
-
- 3. Create a ChargeBee trial account and derive the API Key.
+ 2. Create a ChargeBee trial account and derive the API Key.
    i)    Using the URL "http://www.chargebee.com/" create a ChargeBee trial account.
    ii)   Claim the domain by completing the registration by using the mail which is sent to the mail account used in step 3 i) and note the domain used in the registration. 
    iii)  Login to the created ChargeBee account and go to https://{The created domain}.chargebee.com/api and get the Api Key from there.
 
- 4. Extract the certificate from browser by navigating to https://hari-test.chargebee.com/
+ 3. Extract the certificate from browser by navigating to your chargebee account domain place it in "<EI_HOME>/repository/resources/security/" and "<CHARGEBEE_CONNECTOR_HOME>/org.wso2.carbon.connector/src/test/resources/keystores/products"
 
- 5. Go to new ESB folder and place the downloaded certificate in "<ESB_HOME>/repository/resources/security/" and "<CHARGEBEE_CONNECTOR_HOME>/org.wso2.carbon.connector/src/test/resources/keystores/products"
+ 4. Navigate to "<EI_HOME>/repository/resources/security/" using command prompt and execute the following command in command line to import ChargeBee certificate in to keystore.
+        keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "CERT_NAME"
+   Give "wso2carbon" as password. Press "Y" to complete certificate import process.
 
- 6.Navigate to "<ESB_HOME>/repository/resources/security/" using command prompt and execute keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "CERT_NAME" in command line to import BaseCRM certificate in to keystore.
-		 Give "wso2carbon" as password. Press "Y" to complete certificate import process.
+ 5. Navigate to "<CHARGEBEE_CONNECTOR_HOME>/src/test/resources/keystores/products" using command prompt and execute keytool -importcert -file CERT_FILE_NAME -keystore wso2carbon.jks -alias "CERT_NAME" in command line to import BaseCRM certificate in to keystore.
+             	Give "wso2carbon" as password. Press "Y" to complete certificate import process.
 
- 7.Navigate to "<CHARGEBEE_CONNECTOR_HOME>/src/test/resources/keystores/products" using command prompt and execute keytool -importcert -file CERT_FILE_NAME -keystore wso2carbon.jks -alias "CERT_NAME" in command line to import BaseCRM certificate in to keystore.
-         	Give "wso2carbon" as password. Press "Y" to complete certificate import process.
+ 6. Compress the EI pack and place the zip file at the location "<CHARGEBEE_CONNECTOR_HOME>/repository/"
 
- 8. Update the ChargeBee properties file at location "<CHARGEBEE_CONNECTOR_HOME>/src/test/resources/artifacts/ESB/connector/config" as below.
+ 7. Update the ChargeBee properties file at location "<CHARGEBEE_CONNECTOR_HOME>/src/test/resources/artifacts/ESB/connector/config" as below.
 
    i)     apiUrl                 - The API URL specific to the domain of the created account. e.g. https://soft-test.chargebee.com
-   ii)    apiKey                 - Use the API Key obtained under Step 3 iii).
+   ii)    apiKey                 - Use the API Key obtained under Step 2 iii).
    iii)   discountAmount         - Use an integer value as a discount amount in coupon.
    iv)    durationType           - Use a valid discount type of a coupon as documented in the API documentation
    v)     invoiceNameOpt         - Use a valid string value as invoice name.
@@ -57,5 +56,5 @@ Steps to follow in setting integration test.
    xx)    eventOccurredBefore    - Use a valid future UTC timestamp in seconds.
         Note - There should be at least a difference of 10 minutes between eventOccurredAfter value and eventOccurredBefore value.
 
- 9. Navigate to "<CHARGEBEE_CONNECTOR_HOME>" and run the following command.
+ 7. Navigate to "<CHARGEBEE_CONNECTOR_HOME>" and run the following command.
           $ mvn clean install

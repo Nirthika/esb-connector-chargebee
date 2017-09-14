@@ -1,5 +1,7 @@
 {
   "apiUrl": "%s(apiUrl)",
+  "apiVersion": "%s(apiVersion)",
+  "apiVersion": "%s(apiVersion)",
   "apiKey": "%s(apiKey)",
   "subscriptionId": "--INVALID--"
 }

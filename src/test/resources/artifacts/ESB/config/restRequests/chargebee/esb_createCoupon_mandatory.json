@@ -1,6 +1,7 @@
 {
   "apiUrl": "%s(apiUrl)",
   "apiKey": "%s(apiKey)",
+  "apiVersion": "%s(apiVersion)",
   "couponId": "%s(couponIdMand)",
   "couponName": "%s(couponNameMand)",
   "discountType": "fixed_amount",

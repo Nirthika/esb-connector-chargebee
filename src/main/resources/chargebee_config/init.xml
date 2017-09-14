@@ -20,15 +20,17 @@
 <template name="init" xmlns="http://ws.apache.org/ns/synapse">
     <parameter name="apiUrl" description="The URL of the ChargeBee REST API."/>
     <parameter name="apiKey" description="The API Key of a ChargeBee account."/>
+    <parameter name="apiVersion" description="The API Key of a ChargeBee account."/>
     <sequence>
         <property name="uri.var.apiUrl" expression="$func:apiUrl"/>
         <property name="uri.var.apiKey" expression="$func:apiKey"/>
+        <property name="uri.var.apiVersion" expression="$func:apiVersion"/>
         <property name="Authorization"
                   expression="fn:concat('Basic ', base64Encode(fn:concat(get-property('uri.var.apiKey'), ':')))"
                   scope="transport" type="STRING"/>
         <property name="Content-Type" value="application/x-www-form-urlencoded" scope="transport"
                   type="STRING"/>
         <property name="uri.var.apiUrl"
-                  expression="fn:concat(get-property('uri.var.apiUrl'), '/api/v1')"/>
+                  expression="fn:concat($ctx:uri.var.apiUrl, '/api/', $ctx:uri.var.apiVersion)"/>
     </sequence>
 </template>

@@ -22,6 +22,7 @@
     <target>
         <inSequence>
             <property name="apiUrl" expression="json-eval($.apiUrl)"/>
+            <property name="apiVersion" expression="json-eval($.apiVersion)"/>
             <property name="apiKey" expression="json-eval($.apiKey)"/>
             <property name="limit" expression="json-eval($.limit)"/>
             <property name="offset" expression="json-eval($.offset)"/>
@@ -136,6 +137,7 @@
             <property name="customerVatNumber" expression="json-eval($.customerVatNumber)"/>
             <chargebee.init>
                 <apiUrl>{$ctx:apiUrl}</apiUrl>
+                <apiVersion>{$ctx:apiVersion}</apiVersion>
                 <apiKey>{$ctx:apiKey}</apiKey>
             </chargebee.init>
             <switch source="get-property('transport', 'Action')">
